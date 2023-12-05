@@ -9,3 +9,8 @@ class Display:
 
     def __str__(self):
         return f"Display {self.id}: Welcome to {self.car_park}."
+
+    def update(self, data):
+        for key, value in data.items():
+            print(f"{key}: {value}")
+
