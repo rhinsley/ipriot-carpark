@@ -27,6 +27,7 @@ class CarPark:
         self.log_file.touch(exist_ok=True)
         self.config_file = config_file if isinstance(config_file, Path) else Path(config_file)
         self.config_file.touch(exist_ok=True)
+        self.write_config()
 
     def __str__(self):
         return f"Car Park at 123 Example Street, with {self.capacity} bays."
