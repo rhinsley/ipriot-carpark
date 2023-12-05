@@ -6,6 +6,7 @@ from pathlib import Path
 class TestCarPark(unittest.TestCase):
     def setUp(self):
         self.logfile = "new_log.txt"
+        self.configfile = "new_config.json"
         self.car_park = CarPark("123 Example Street", 100)
 
     def test_car_park_initialized_with_all_attributes(self):
@@ -17,6 +18,7 @@ class TestCarPark(unittest.TestCase):
         self.assertEqual(self.car_park.displays, [])
         self.assertEqual(self.car_park.available_bays, 100)
         self.assertEqual(self.car_park.log_file, Path("log.txt"))
+        self.assertEqual(self.car_park.config_file, Path("config.json"))
 
     def test_add_car(self):
         self.car_park.add_car("FAKE-001")
@@ -54,9 +56,15 @@ class TestCarPark(unittest.TestCase):
         new_carpark = CarPark("123 Example Street", 100, log_file=self.logfile)
         self.assertTrue(Path(self.logfile).exists())
 
+    def test_config_file_created(self):
+        new_carpark = CarPark("123 Example Street", 100, config_file=self.configfile)
+        self.assertTrue(Path(self.configfile).exists())
+
     def tearDown(self):
         Path(self.logfile).unlink(missing_ok=True)
         Path("log.txt").unlink(missing_ok=True)
+        Path("new_config.json").unlink(missing_ok=True)
+        Path("config.json").unlink(missing_ok=True)
 
     def test_car_logged_when_entering(self):
         new_carpark = CarPark("123 Example Street", 100, log_file=self.logfile)
@@ -77,6 +85,9 @@ class TestCarPark(unittest.TestCase):
         self.assertIn("exited", last_line)  # check description
         self.assertIn("\n", last_line)  # check entry has a new line
 
+
+# TODO Unit test for writing to config file
+# TODO Unit tests for creation of class object from config file
 
 if __name__ == "__main__":
     unittest.main()
