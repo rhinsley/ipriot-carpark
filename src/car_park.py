@@ -3,6 +3,7 @@
 from sensor import Sensor
 from display import Display
 
+
 class CarPark:
     def __init__(self, location="Unknown", capacity=0, plates=None, sensors=None, displays=None):
         self.location = location
@@ -38,4 +39,3 @@ class CarPark:
     @property
     def available_bays(self):
         return max(self.capacity - len(self.plates), 0)
-
